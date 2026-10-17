@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0f766e">
+<title>سند | منصتك التعليمية</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f1f5f9;color:#172033}
+header{background:#0f766e;color:white;padding:24px 18px;border-radius:0 0 24px 24px}
+header h1{margin:0 0 8px;font-size:30px}
+header p{margin:0;line-height:1.8}
+main{max-width:600px;margin:auto;padding:16px}
+.card{background:white;padding:20px;margin:14px 0;border-radius:18px;box-shadow:0 4px 15px #0000000b}
+h2{margin-top:0;color:#0f766e}
+label{display:block;margin:14px 0 6px}
+input,select{width:100%;padding:13px;border:1px solid #cbd5e1;border-radius:10px;font-size:16px;background:white}
+button{width:100%;padding:14px;border:0;border-radius:10px;background:#0f766e;color:white;font-size:16px;margin-top:12px}
+.price{font-size:24px;font-weight:bold}
+.small{color:#64748b;font-size:13px;line-height:1.7}
+</style>
+</head>
+<body>
+<header>
+<h1>سند 📚</h1>
+<p>منصتك التعليمية للطلاب والمدرسين<br>تعلّم، اشرح، وحقق أهدافك.</p>
+</header>
+<main>
+<section class="card">
+<h2>ابدأ مع سند</h2>
+<label for="role">نوع الحساب</label>
+<select id="role" onchange="changeRole()">
+<option value="student">طالب</option>
+<option value="teacher">مدرس</option>
+</select>
+<p id="description">اشترك للوصول إلى الدروس والملفات والواجبات.</p>
+<p>الاشتراك الشهري</p>
+<div class="price" id="price">300 جنيه</div>
+<button onclick="showPayment()">عرض تفاصيل الدفع</button>
+</section>
+
+<section class="card" id="payment" hidden>
+<h2>الاشتراك والدفع</h2>
+<p>حوّل قيمة الاشتراك إلى محفظة e& cash التالية:</p>
+<p class="price" id="wallet">01118624752</p>
+<button onclick="copyWallet()">نسخ رقم المحفظة</button>
+<p id="amount"></p>
+<p class="small">بعد التحويل، تواصل مع إدارة سند لتأكيد استلام المبلغ. هذه نسخة تجريبية ولا ترسل إثبات دفع أو تفعّل اشتراكًا تلقائيًا.</p>
+</section>
+
+<section class="card">
+<h2>مميزات سند</h2>
+<p>📘 دروس وملفات تعليمية</p>
+<p>📝 واجبات ومتابعة دراسية</p>
+<p>👨‍🏫 حسابات للمدرسين</p>
+<p>🎓 إمكانية التقدم بطلب منحة مجانية</p>
+</section>
+<p class="small">نسخة أولية للعرض والتجربة. تسجيل الحسابات والدفع الحقيقي يحتاجان إلى إعداد خادم آمن.</p>
+</main>
+<script>
+function changeRole(){
+ const teacher=document.getElementById('role').value==='teacher';
+ document.getElementById('price').textContent=teacher?'750 جنيه فأكثر':'300 جنيه';
+ document.getElementById('description').textContent=teacher?'اشتراك المدرس يبدأ من 750 جنيه شهريًا.':'اشترك للوصول إلى الدروس والملفات والواجبات.';
+}
+function showPayment(){
+ document.getElementById('payment').hidden=false;
+ document.getElementById('amount').textContent='المبلغ المطلوب: '+document.getElementById('price').textContent;
+ document.getElementById('payment').scrollIntoView({behavior:'smooth'});
+}
+function copyWallet(){
+ const n=document.getElementById('wallet').textContent;
+ if(navigator.clipboard){navigator.clipboard.writeText(n).then(()=>alert('تم نسخ الرقم')).catch(()=>alert('رقم المحفظة: '+n));}
+ else{alert('رقم المحفظة: '+n);}
+}
+</script>
+</body>
+</html>
